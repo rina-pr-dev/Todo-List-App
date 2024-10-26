@@ -3,24 +3,15 @@ using TodoList.Core.Models;
 
 namespace TodoList.Core;
 
-public class TaskManager
+public class TaskManager : ITaskManager
 {
     private readonly ILogger<TaskManager> logger;
-
-    public TaskManager(ILoggerFactory loggerFactory)
+    private List<TaskList> taskLists;
+    private IStorageManager storageManager;
+    public TaskManager(ILoggerFactory loggerFactory, IStorageManager storageManager)
     {
         this.logger = loggerFactory.CreateLogger<TaskManager>();
+        this.storageManager = storageManager;
+        this.taskLists = storageManager.LoadTaskLists();
     }
-
-    public TodoTask CreateTodoTask(string title, string description = null)
-    {
-        var task = new TodoTask(){
-            Id = Guid.NewGuid(),
-            CreationTime = DateTime.UtcNow,
-            Title = title,
-            Description = description,
-        }
-    }
-
-    
 }

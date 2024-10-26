@@ -7,4 +7,10 @@ public class TodoTask
     public string Description { get; set; }
     public DateTime CreationTime { get; set; }
     public TaskDependencies Dependencies { get; set; }
+
+    public TodoTask()
+    {
+        Id = Guid.NewGuid();
+        Dependencies = new();
+    }
 }
